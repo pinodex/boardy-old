@@ -28,7 +28,7 @@ class SettingsController {
 			->add('name', 'text', array(
 				'constraints' => array(
 					new Assert\NotBlank(),
-					new Assert\Length(array('min' => 5))
+					new Assert\Length(array('min' => 2))
 				),
 				'data' => $user['name']
 			))

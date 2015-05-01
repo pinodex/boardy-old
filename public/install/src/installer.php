@@ -174,7 +174,8 @@ $app->match('/admin', function (Request $request) use ($app) {
 	$form = $app['form.factory']->createNamedBuilder(null, 'form')
 		->add('name', 'text', array(
 			'constraints' => array(
-				new Assert\NotBlank()
+				new Assert\NotBlank(),
+				new Assert\Length(array('min' => 2))
 			)
 		))
 		->add('email', 'text', array(
@@ -184,7 +185,8 @@ $app->match('/admin', function (Request $request) use ($app) {
 		))
 		->add('username', 'text', array(
 			'constraints' => array(
-				new Assert\NotBlank()
+				new Assert\NotBlank(),
+				new Assert\Length(array('min' => 2)),
 			)
 		))
 		->add('password', 'repeated', array(

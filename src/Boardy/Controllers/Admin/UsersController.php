@@ -34,7 +34,7 @@ class UsersController {
 			->add('name', 'text', array(
 				'constraints' => array(
 					new Assert\NotBlank(),
-					new Assert\Length(array('min' => 5))
+					new Assert\Length(array('min' => 2))
 				)
 			))
 			->add('email', 'email', array(

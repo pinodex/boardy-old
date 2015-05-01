@@ -19,7 +19,7 @@ use Boardy\Utils\Hash;
 class PasswordMatchValidator extends ConstraintValidator {
 
 	public function validate($value, Constraint $constraint) {
-		if (!Hash::check($value, $constraint->to)) {
+		if ($value && !Hash::check($value, $constraint->to)) {
 			$this->context->addViolation($constraint->message);
 		}
 	}
