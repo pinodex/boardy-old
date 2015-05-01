@@ -1,0 +1,29 @@
+{% extends "@admin/layouts/main.html" %}
+
+{% block content %}
+	<div class="main-container">
+		<div class="row page-header">
+			<div class="columns small-12 page-header-text">
+				<h3>Delete User &ldquo;{{ user.name }}&rdquo;</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="columns large-12">
+				<h5>Are you sure you want to delete this user?</h5>
+				<p class="notes">Just a little stats for this user:</p>
+				<ul class="notes">
+					<li>This user was registered on {{ user.registered|date('F d, Y h:i A') }}</li>
+					<li>The last this user logged in was {{ user.last_login|date('F d, Y h:i A') }}</li>
+					<li>This user made a total of {{ totals.posts }} post{{ totals.posts > 0 ? 's' }}</li>
+					<li>This user made a total of {{ totals.replies }} {{ totals.replies > 0 ? 'replies' : 'reply' }}</li>
+				</ul>
+				<p class="notes">Deleting this user will not delete any of the posts and replies this user made. Instead, the author's name will be &ldquo;Unknown&rdquo;.</p>
+				<form action="{{ app.request.pathinfo }}" method="post">
+					{{ form_widget(user_form) }}
+					<button type="submit" class="button alert small radius"><i class="fa fa-trash"></i> Delete</button>
+					<a href="{{ path('admin.categories') }}" class="button secondary small radius">Cancel</a>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

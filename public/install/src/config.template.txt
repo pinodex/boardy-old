@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * Boardy
+ *
+ * Simple PHP forum app.
+ *
+ * @package  boardy
+ * @author   Raphael Marco <pinodex@outlook.ph>
+ * @link     http://pinodex.io
+ *
+ * This file contains the configurations for Boardy.
+ */
+
+/*
+ * Debug mode
+ * Setting this to true displays error messages.
+ */
+$app['debug'] = false;
+
+/*
+ * Timezone
+ */
+$app['timezone'] = '{timezone}';
+
+/*
+ * Assets base
+ * Change this if you are using a CDN.
+ */
+$app['assets.base'] = null;
+
+/*
+ * Assets path
+ * Defaults to /assets
+ */
+$app['assets.path'] = '/assets';
+
+/*
+ * Admin panel base URL
+ * Defaults to /admin
+ */
+$app['admin.base'] = '/administrator';
+
+/*
+ * Twig path
+ * Templates location for Twig to look for.
+ */
+$app['twig.path'] = APP . 'views';
+
+/*
+ * Twig options
+ */
+$app['twig.options'] = array(
+	'cache' => ROOT . 'cache/twig'
+);
+
+/*
+ * Profiler configuration
+ */
+$app['enable_profiler'] = false;
+$app['profiler.cache_dir'] = ROOT . 'cache/profiler';
+$app['profiler.mount_prefix'] = '/_profiler';
+
+/*
+ * Database configuration
+ */
+$app['db.config'] = array(
+	'driver'		=> 'mysql',
+	'host'			=> '{host}',
+	'database'		=> '{database}',
+	'username'		=> '{username}',
+	'password'		=> '{password}',
+	'prefix'		=> '{prefix}',
+	'charset'		=> '{charset}',
+	'collation'		=> '{collation}',
+	'logging'		=> false
+);
+
+/*
+ * Session storage configuration
+ */
+$app['session.storage.options'] = array(
+	'name' => 'session'
+);
+
+/*
+ * Session database configuration
+ */
+$app['session.db_options'] = array(
+	'db_table'			=> $app['db.config']['prefix'] . 'sessions',
+	'db_id_col'			=> 'id',
+	'db_data_col'		=> 'data',
+	'db_lifetime_col'	=> 'lifetime',
+	'db_time_col'		=> 'time'
+);
+
+/*
+ * Swift Mailer settings for SMTP
+ */
+$app['swiftmailer.options'] = array(
+	'host'			=> 'localhost',
+	'port'			=> '587',
+	'username'		=> '',
+	'password'		=> '',
+	'encryption'	=> null,
+	'auth_mode'		=> null
+);
+
+/*
+ * Set the email address sender for emails.
+ */
+$app['sent_from_address'] = 'no-reply@mydomain.com';

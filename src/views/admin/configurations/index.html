@@ -1,0 +1,48 @@
+{% extends "@admin/layouts/main.html" %}
+
+{% form_theme configurations_form '@admin/layouts/form_base.html' %}
+
+{% set messages = flashbag('message') %}
+
+{% block content %}
+	<div class="main-container">
+	{% if messages %}
+		<div class="row notification">
+			<div class="columns large-12">
+			{% for message in messages %}
+				<div class="alert-box secondary radius">{{ message }}</div>
+			{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+		<div class="row page-header">
+			<div class="columns small-12 page-header-text">
+				<h3>Configurations</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="columns large-5">
+				<form action="{{ path('admin.configurations') }}" method="post" class="category-form form-with-slug">
+					{{ form_widget(configurations_form) }}
+					<button type="submit" class="button small radius"><i class="fa fa-floppy-o"></i> Save Changes</button>
+				</form>
+			</div>
+			<div class="columns large-4">
+				<div class="window">
+					<div class="title"><i class="fa fa-info-circle"></i> Theme info</div>
+					<div class="content info-box">
+					{% if not theme %}
+						<p>Cannot parse theme's manifest.json file.</p>
+					{% else %}
+						<p>Name: <strong>{{ theme.name }}</strong></p>
+						<p>Description: <strong>{{ theme.description }}</strong></p>
+						<p>Version: <strong>{{ theme.version }}</strong></p>
+						<p>Link: <strong>{{ theme.link }}</strong></p>
+						<p>License: <strong>{{ theme.license }}</strong></p>
+					{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

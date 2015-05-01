@@ -1,0 +1,25 @@
+{% extends "@admin/layouts/main.html" %}
+
+{% form_theme category_form '@admin/layouts/form_base.html' %}
+
+{% block content %}
+	<div class="main-container">
+		<div class="row page-header">
+			<div class="columns small-7 page-header-text">
+				<h3>Add Category</h3>
+			</div>
+			<div class="columns small-5 page-header-controls">
+				<button class="button tiny round" data-remote-submit=".category-form"><i class="fa fa-floppy-o"></i> Save</button>
+				<a href="{{ path('admin.categories') }}" class="button secondary tiny round" data-confirm-redirect="Are you sure you want to discard this category?"><i class="fa fa-times"></i> Cancel</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="columns large-5">
+				<form action="{{ path('admin.categories.add') }}" method="post" class="category-form form-with-slug">
+					{{ form_widget(category_form) }}
+					<button type="submit" class="button small radius"><i class="fa fa-floppy-o"></i> Save</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

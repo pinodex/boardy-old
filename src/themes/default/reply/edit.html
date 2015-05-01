@@ -1,0 +1,27 @@
+{% extends "@theme/layouts/main.html" %}
+
+{% form_theme reply_form '@theme/layouts/form_post.html' %}
+
+{% block content %}
+	<div class="container main">
+	{% for message in flashbag('message') %}
+		<div class="alert">{{ message }}</div>
+	{% endfor %}
+		<h5>Edit reply</h5>
+		<div class="category post">
+			<div class="category-header">
+				<h2 style="font-size: 24px;">{{ reply.author.name }}</h2>
+				<p>{% include "@theme/layouts/reply_meta.html" %}</p>
+			</div>
+			<div class="post-view reply-edit">
+				<form action="{{ app.request.pathinfo }}" method="post">
+					{{ form_widget(reply_form) }}
+					<button class="button button-primary" type="submit">Save changes</button>	
+				</form>
+			</div>
+		</div>
+		<p style="margin-top: 10px;">
+			<a href="{{ path('post.view.id', {board_slug: board.slug, post_id: post.id}) }}#reply-{{ reply.id }}">View full thread</a>
+		</p>
+	</div>
+{% endblock %}

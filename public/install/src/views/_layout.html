@@ -1,0 +1,61 @@
+{% set messages = flashbag('message') %}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>{% if page_title is defined %}{{ page_title }} - {% endif %} Install Boardy</title>
+	<link rel="stylesheet" type="text/css" href="{{ asset('/css/normalize.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('/css/skeleton.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('/css/installer.css') }}" />
+</head>
+<body>
+	<div class="container">
+	{% if hide_header is not defined %}
+		<div class="row">
+			<div class="twelve columns">
+				<h2 class="title">Install Boardy</h2>
+			</div>
+		</div>
+	{% endif %}
+	{% if messages %}
+		<div class="row">
+			<div class="twelve columns">
+	{% for message in messages %}
+				<div class="alert">{{ message }}</div>
+	{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+		<div class="row">
+			<div class="twelve column">
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+	</div>
+	<script src="{{ asset('/js/nanoajax.min.js') }}"></script>
+	<script>
+
+		if (document.getElementsByClassName('install')[0]) {
+			nanoajax.ajax('{{ path("post.async") }}', function(code, r) {
+				if (code != 200) {
+					alert('An error occurred');
+					return;
+				}
+
+				r = JSON.parse(r);
+
+				if (r.status == 'ok') {
+					document.getElementsByClassName('install')[0].style.display = 'none';
+					document.getElementsByClassName('finish')[0].style.display = 'block';
+
+					return;
+				}
+
+				alert('An error occurred');
+				return;
+			});
+		}
+	</script>
+</body>
+</html>

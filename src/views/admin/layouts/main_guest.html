@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('/css/normalize.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('/css/skeleton.css') }}" />
+	<title>{% if page_title is defined %}{{ page_title }}{% endif %}</title>
+</head>
+<body>
+{% block content %}{% endblock %}
+</body>
+</html>

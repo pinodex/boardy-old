@@ -1,0 +1,7 @@
+### Hello humans! I come in peace.
+
+Thank you for installing Boardy, a lightweight PHP forum software (not including dependancies :P). I just want you to know that this software is not ready for production use. If you intend to make a forum website for everyone, I suggest using a stable forum software.
+
+This is just a sample post on a sample board on a sample board category. To get rid of this, just click that little red delete button on the top. You can also login to the admin panel to manage everything on this site.
+
+Thank you!

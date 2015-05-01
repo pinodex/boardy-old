@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('/css/normalize.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('/css/foundation.min.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('/css/admin.css') }}" />
+	<script src="{{ asset('/js/modernizr.js') }}"></script>
+	<script>
+		var baseUrl = '{{ app.request.getSchemeAndHttpHost() }}';
+
+	{% if extra_data is defined %}
+	{% for variable,data in extra_data %}
+		var {{ variable }} = {{ data|json_encode|raw }}
+	{% endfor %}
+	{% endif %}
+	</script>
+	<title>{% if page_title is defined %}{{ page_title }}{% endif %}</title>
+</head>
+<body>
+	<div class="sticky">
+		<nav class="top-bar" data-topbar="" role="navigation">
+			<ul class="title-area">
+				<li class="name"><h1><a href="{{ path('admin.index') }}">Admin Panel</a></h1></li>
+				<li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+			</ul>
+			<section class="top-bar-section">
+				<ul class="left show-for-small-only">
+				{% for name,data in app.admin_side_bar %}
+					<li{{ (app.request.get('_route') starts with data.route) ? ' class="active"'}}>
+						<a href="{{ path(data.route) }}"><i class="{{ data.icon }}"></i> {{ name }}</a>
+					</li>
+				{% endfor %}
+				</ul>
+				<ul class="right">
+					<li><a href="{{ path('site.index') }}"><i class="fa fa-chevron-left"></i> Back to site</a></li>
+					<li><a href="#void"><i class="fa fa-user"></i> {{ app.current_user.name }}</a></li>
+					<li><a href="{{ path('auth.logout', {'_': app.auth.getSession()}) }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+				</ul>
+			</section>
+		</nav>
+	</div>
+	<div class="main row">
+		<div class="columns medium-2 side-bar-container">
+			<nav class="side-bar">
+				<section class="side-bar-section">
+					<ul>
+					{% for name,data in app.admin_side_bar %}
+						<li{{ (app.request.get('_route') starts with data.route) ? ' class="active"'}}>
+							<a href="{{ path(data.route) }}"><i class="{{ data.icon }}"></i> {{ name }}</a>
+						</li>
+					{% endfor %}
+					</ul>
+				</section>
+			</nav>
+		</div>
+		<div class="columns medium-10 main-content-container">
+{% block content %}{% endblock %}
+		</div>
+	</div>
+	<script src="{{ asset('/js/jquery.min.js') }}"></script>
+	<script src="{{ asset('/js/foundation.min.js') }}"></script>
+	<script src="{{ asset('/js/webfont.js') }}"></script>
+	<script src="{{ asset('/js/admin.js') }}"></script>
+</body>
+</html>

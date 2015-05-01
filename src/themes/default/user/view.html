@@ -1,0 +1,49 @@
+{% extends "@theme/layouts/main.html" %}
+
+{% block content %}
+	<div class="container main">
+	{% for message in flashbag('message') %}
+		<div class="alert">{{ message }}</div>
+	{% endfor %}
+		<div class="row profile">
+			<div class="three columns">
+				<div class="dp">
+					<img src="http://www.gravatar.com/avatar/{{ user.email|md5 }}?s=256&amp;d=mm" alt="Profile Picture" />
+				</div>
+				<div class="info">
+					<h2>{{ user.name }}</h2>
+					<p><strong>{{ user.acctype|capitalize }}</strong></p>
+					<p>Member since {{ user.registered|date('M Y') }}</p>
+				{% if user.active %}
+					<p><span class="green-ol"></span> Online</p>
+				{% else %}
+					<p>Last seen on {{ user.last_activity|date('M d, h:i a') }}</p>
+				{% endif %}
+				{% if own_profile %}
+					<p><a href="{{ path('settings.account') }}">Account settings</a></p>
+				{% endif %}
+				</div>
+			</div>
+			<div class="nine columns">
+				<div class="category">
+					<div class="category-header">
+						<p>Latest posts by this user</p>
+					</div>
+					<div class="posts">
+					{% if user.posts is empty %}
+						<div class="post">
+							<p>There are no posts from this user</p>
+						</div>
+					{% endif %}
+					{% for post in user.posts %}
+						<div class="post">
+							<h3><a href="{{ path('post.view', {board_slug: post.board.slug, post_id: post.id, post_slug: post.slug}) }}">{{ post.name }}</a></h3>
+							<p>Posted on {{ post.created|date('M d, h:i a') }}</p>
+						</div>
+					{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

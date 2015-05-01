@@ -1,0 +1,33 @@
+{% extends "@theme/layouts/main.html" %}
+
+{% form_theme user_form '@theme/layouts/form_auth.html' %}
+
+{% block content %}
+	<div class="container main">
+	{% for message in flashbag('message') %}
+		<div class="alert">{{ message }}</div>
+	{% endfor %}
+		<div class="row profile">
+			<div class="three columns">
+				<div class="dp">
+					<img src="http://www.gravatar.com/avatar/{{ user.email|md5 }}?s=256&amp;d=mm" alt="Profile Picture" />
+				</div>
+			</div>
+			<div class="nine columns">
+				<div class="category">
+					<div class="category-header">
+						<p>Account settings</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="six columns">
+						<form action="{{ app.request.pathinfo }}" method="post" class="settings-form">
+							{{ form_widget(user_form) }}
+							<button type="submit" class="button-primary submit-button">Save changes</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

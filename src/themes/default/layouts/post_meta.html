@@ -1,0 +1,9 @@
+{% if post.author.id == '0' %}
+	Posted by <span class="void-link">{{ post.author.name }}</span>
+{% else %}
+	Posted by <a href="{{ path('user.view', {id: post.author.id, username: post.author.username}) }}">{{ post.author.name }}</a>
+{% endif %}
+&bull; {{ post.created|date('M d, h:i a') }}
+{% if post.last_edited %}
+	&nbsp;(Last edited: {{ post.last_edited|date('M d, h:i a') }})
+{% endif %}

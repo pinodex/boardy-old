@@ -1,0 +1,25 @@
+{% extends "@theme/layouts/main.html" %}
+
+{% form_theme post_form '@theme/layouts/form_post.html' %}
+
+{% block content %}
+	<div class="container main">
+		<div class="category post">
+			<div class="category-header">
+				<h2>{{ board.name }}</h2>
+				<p>{{ board.description }}</p>
+			</div>
+			<div class="post-view create">
+				<h5>Edit Post</h5>
+				<div class="row">
+					<div class="columns eight">
+						<form action="{{ app.request.pathinfo }}" method="post">
+							{{ form_widget(post_form) }}
+							<button type="submit" class="button button-primary">Save Changes</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

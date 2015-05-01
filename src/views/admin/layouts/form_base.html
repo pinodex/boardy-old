@@ -1,0 +1,33 @@
+{%- block form_widget_simple -%}
+	{%- set class = class|default('') -%}
+	{%- set type = type|default('text') -%}
+	<input{% if class is not empty %} class="{{ class }}"{% endif %} type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{%- endblock form_widget_simple -%}
+
+{%- block form_widget_compound -%}
+	<div {{ block('widget_container_attributes') }}>
+		{{- block('form_rows') -}}
+		{{- form_rest(form) -}}
+		{%- if form.parent is empty -%}
+			{{ form_errors(form) }}
+		{%- endif -%}
+	</div>
+{%- endblock form_widget_compound -%}
+
+{%- block form_row -%}
+	<div class="form-row{{ (errors|length) > 0 ? ' has-error' }}">
+		{{- form_label(form) -}}
+		{{- form_widget(form) -}}
+		{{- form_errors(form) -}}
+	</div>
+{%- endblock form_row -%}
+
+{%- block form_errors -%}
+	{%- if errors|length > 0 -%}
+	<ul class="errors">
+		{%- for error in errors -%}
+			<li>{{ error.message }}</li>
+		{%- endfor -%}
+	</ul>
+	{%- endif -%}
+{%- endblock form_errors -%}

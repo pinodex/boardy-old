@@ -1,0 +1,35 @@
+{% extends "@theme/layouts/main.html" %}
+
+{% block content %}
+	<div class="container main">
+	{% for message in flashbag('message') %}
+		<div class="alert">{{ message }}</div>
+	{% endfor %}
+	{% if app.current_user %}
+		<div class="board-buttons">
+			<a href="{{ path('post.create', {board_slug: board.meta.slug}) }}" class="button button-primary">New Post</a>
+		</div>
+	{% endif %}
+		<div class="category">
+			<div class="category-header">
+				<h2>{{ board.meta.name }}</h2>
+				<p>{{ board.meta.description }}</p>
+			</div>
+			<div class="posts">
+			{% for post in board.posts %}
+				<div class="post">
+					<h3><a href="{{ path('post.view', {board_slug: board.meta.slug, post_id: post.id, post_slug: post.slug}) }}">{{ post.name }}</a></h3>
+					<p>{% include "@theme/layouts/post_meta.html" %}</p>
+				</div>
+			{% endfor %}
+			</div>
+		</div>
+		<ul class="pagination">
+			<li><a href="lol">&laquo;</a></li>
+		{% for page in board.pages %}
+			<li><a href="{{ path('board', {board_slug: board.meta.slug, page: page}) }}">{{ page }}</a></li>
+		{% endfor %}
+			<li><a href="lol">&raquo;</a></li>
+		</ul>
+	</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "@theme/layouts/main.html" %}
+
+{% block content %}
+	<div class="container main">
+		<div class="row">
+			<div class="eight columns categories">
+				{% for category in app.board_categories.all %}
+					{% set boards = app.boards.byCategory(category.id) %}
+					<div class="category">
+						<div class="category-header">
+							<h2><a href="{{ path('category', {slug: category.slug}) }}">{{ category.name }}</a></h2>
+							<p>{{ category.description }}</p>
+						</div>
+						<div class="boards">
+							{% if boards is empty %}
+								<div class="board">
+									<p>No items to show</p>
+								</div>
+							{% endif %}
+							{% for board in boards %}
+								<div class="board">
+									<span class="posts-count">{{ board.posts_count }}</span>
+									<span class="icon">{{ board.name|first|upper }}</span>
+									<h3><a href="{{ path('board', {board_slug: board.slug}) }}">{{ board.name }}</a></h3>
+									<p>{{ board.description }}</p>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="four columns sidebar">
+				<div class="sidebar-panel">
+					<div class="sidebar-header">
+						<h2>Latest News</h2>
+					</div>
+					<div class="sidebar-content">
+						Lorem ipsum dolor sit amet.
+					</div>
+				</div>
+				<div class="sidebar-panel">
+					<div class="sidebar-header">
+						<h2>Advertisement</h2>
+					</div>
+					<div class="sidebar-content">
+						Lorem ipsum dolor sit amet.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

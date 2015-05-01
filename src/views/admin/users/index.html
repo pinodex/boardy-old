@@ -1,0 +1,52 @@
+{% extends "@admin/layouts/main.html" %}
+
+{% set messages = flashbag('message') %}
+
+{% block content %}
+	<div class="main-container">
+	{% if messages %}
+		<div class="row notification">
+			<div class="columns large-12">
+			{% for message in messages %}
+				<div class="alert-box secondary radius">{{ message }}</div>
+			{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+		<div class="row page-header">
+			<div class="columns small-7 page-header-text">
+				<h3>Users</h3>
+			</div>
+			<div class="columns small-5 page-header-controls">
+				<a href="{{ path('admin.users.add') }}" class="button tiny round"><i class="fa fa-plus"></i> New</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="columns large-12">
+				<div class="grid">
+					<div class="row">
+					{% for user in users %}
+						<div class="columns small-6 medium-3 large-2">
+							<div class="item">
+								<div class="image-text-overlay">
+									<img src="http://www.gravatar.com/avatar/{{ user.email|md5 }}?s=128&amp;d=mm" alt="" />
+									<span>{{ user.name }}</span>
+								</div>
+								<div class="content">
+									<p>@{{ user.username }}</p>
+									<p>{{ user.acctype|capitalize }}</p>
+									<p class="small">Joined {{ user.registered|date('m/d/y') }}</p>
+								</div>
+								<div class="controls">
+									<a href="{{ path('admin.users.edit', {id: user.id}) }}" class="button secondary tiny radius"><i class="fa fa-edit"></i> <span>Edit</span></a>
+									<a href="{{ path('admin.users.delete', {id: user.id}) }}" class="button alert tiny radius"><i class="fa fa-minus-circle"></i> <span>Delete</span></a>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

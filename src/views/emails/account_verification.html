@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Account verification</title>
+	<style type="text/css">
+		body {
+			font-family: 'Helvetica', sans-serif;
+		}
+
+		.container {
+			background: #fff;
+			border-radius: 3px;
+			width: 100%;
+			max-width: 600px;
+			margin: 0 auto;
+		}
+
+		.content {
+			padding: 20px;
+			font-size: 14px;
+		}
+
+		h1 {
+			border-bottom: 1px solid #e1e1e1;
+			font-size: 20px;
+			font-weight: normal;
+			padding: 20px;
+			text-align: center;
+		}
+
+		.verification-link {
+			display: inline-block;
+			background: #003971;
+			border-radius: 3px;
+			font-size: 16px;
+			padding: 10px 15px;
+			color: #fff;
+			text-decoration: none;
+		}
+
+		.verification-link:hover,
+		.verification-link:focus,
+		.verification-link:active {
+			text-decoration: none;
+		}
+
+		.big-top {
+			margin-top: 40px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>{{ app.forum_name }} Account Verification</h1>
+		<div class="content">
+			<p><strong>{{ name }},</strong></p>
+			<p>Welcome to {{ app.forum_name }}! To complete the registration, please click the button below to verify your account.</p>
+			<p><a href="{{ url('auth.verification', {hash: verification_key}) }}" class="verification-link">Verify Account</a></p>
+			<p class="big-top">If you did not initiated this request, please ignore and delete this email.</p>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="generator" content="{{ app.version.info }}" />
+	<link rel="stylesheet" type="text/css" href="{{ theme_asset('/css/vendor.min.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ theme_asset('/css/layout.css') }}" />
+	<title>{% if page_title is defined %}{{ page_title }}{% endif %} - {{ app.configurations.get('forum_name') }}</title>
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1>{{ app.configurations.get('forum_name') }}</h1>
+			<nav id="mainNav">
+				<ul class="nav left">
+					<li><a href="{{ path('site.index') }}">Home</a></li>
+					<li><a href="#">Test Item</a></li>
+				</ul>
+				<ul class="nav right">
+				{% if app.current_user %}
+				{% if app.current_user.acctype == 'ADMIN' %}
+					<li><a href="{{ path('admin.index') }}">Admin Panel</a></li>
+				{% endif %}
+					<li><a href="{{ path('user.view', {id: app.current_user.id, username: app.current_user.username}) }}">{{ app.current_user.name }}</a></li>
+					<li><a href="{{ path('auth.logout', {'_': app.auth.getSession()}) }}">Logout</a></li>
+				{% else %}
+					<li><a href="{{ path('auth.login') }}">Login</a></li>
+					<li><a href="{{ path('auth.register') }}">Register</a></li>
+				{% endif %}
+				</ul>
+			</nav>
+		</header>
+	{% if app.current_user and app.current_user.acctype == 'UNVERIFIED' %}
+		<div class="vnotif">
+			Your account is unverified. <a href="{{ path('auth.verify') }}">Click here</a> for verification instructions.
+		</div>
+	{% endif %}
+	</div>
+{% block content %}{% endblock %}
+	<div class="container">
+		<footer>
+			
+		</footer>
+	</div>
+	<script src="{{ theme_asset('/js/app.js') }}"></script>
+</body>
+</html>

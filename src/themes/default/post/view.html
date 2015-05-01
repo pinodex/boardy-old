@@ -1,0 +1,69 @@
+{% extends "@theme/layouts/main.html" %}
+
+{% form_theme reply_form '@theme/layouts/form_post.html' %}
+
+{% block content %}
+	<div class="container main">
+	{% for message in flashbag('message') %}
+		<div class="alert">{{ message }}</div>
+	{% endfor %}
+	{% if app.posts.canEdit(post.author.id) %}
+		<div class="board-buttons">
+			<a href="{{ path('post.delete', {board_slug: board.slug, post_id: post.id}) }}" class="button button-negative">Delete Post</a>
+			<a href="{{ path('post.edit', {board_slug: board.slug, post_id: post.id}) }}" class="button button-primary">Edit Post</a>
+		</div>
+	{% endif %}
+		<div class="category post">
+			<div class="category-header">
+				<h2>{{ post.name }}</h2>
+				<p>{% include "@theme/layouts/post_meta.html" %}</p>
+			</div>
+			<div class="post-view">
+				{{ post.content|markdown }}
+			</div>
+		</div>
+		<div class="replies">
+		{% for reply in replies %}
+			<div class="reply" id="reply-{{ reply.id }}">
+				<div class="reply-header">
+				{% if app.current_user and reply.author.id == app.current_user.id %}
+					<div class="actions">
+						<a href="{{ path('reply.edit', {board_slug: board.slug, post_id: post.id, reply_id: reply.id}) }}">Edit</a>&nbsp;
+						<a href="{{ path('reply.delete', {board_slug: board.slug, post_id: post.id, reply_id: reply.id}) }}">Delete</a>
+					</div>
+				{% endif %}
+					<h3>{{ reply.author.name }}</h3>
+					<p><a href="{{ path('reply.view', {board_slug: board.slug, post_id: post.id, reply_id: reply.id}) }}">
+						{% include "@theme/layouts/reply_meta.html" %}
+					</a></p>
+				</div>
+				<div class="reply-view">
+					{{ reply.content|markdown }}
+				</div>
+			</div>
+		{% endfor %}
+		{% if app.current_user %}
+			<div class="reply" id="reply-new">
+				<div class="reply-header">
+					<h3>New Reply</h3>
+				</div>
+				<div class="reply-view create">
+					<form action="{{ app.request.pathinfo }}" method="post">
+						{{ form_widget(reply_form) }}
+						<button class="button button-primary" type="submit">Add Reply</button>	
+					</form>
+				</div>
+			</div>
+		{% endif %}
+		</div>
+		{% if pages %}
+		<ul class="pagination">
+			<li><a href="lol">&laquo;</a></li>
+		{% for page in pages %}
+			<li><a href="{{ path('post.view', {board_slug: board.slug, post_id: post.id, post_slug: post.slug, page: page}) }}">{{ page }}</a></li>
+		{% endfor %}
+			<li><a href="lol">&raquo;</a></li>
+		</ul>
+		{% endif %}
+	</div>
+{% endblock %}

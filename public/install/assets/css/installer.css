@@ -1,0 +1,53 @@
+body {
+	padding-top: 60px;
+}
+
+.title {
+	padding-bottom: 5px;
+	border-bottom: 1px solid #ddd;
+}
+
+.index {
+	text-align: center;
+	margin-top: 100px;
+}
+
+.index h3 {
+	margin-bottom: 0;
+}
+
+.index a {
+	margin-top: 50px;
+	font-size: 18px;
+	font-weight: normal;
+	padding: 15px 30px;
+	line-height: normal;
+	height: auto;
+}
+
+.alert {
+	background: #c23f3f;
+	color: #fff;
+	padding: 10px 15px;
+	border-radius: 3px;
+	margin-bottom: 10px;
+}
+
+form input {
+	width: 100%;
+}
+
+form ul.errors {
+	margin-top: -10px;
+}
+
+form ul.errors,
+form ul.errors li {
+	list-style-type: none;
+	margin-left: 0;
+	font-size: 12px;
+}
+
+.hidden {
+	display: none;
+}

@@ -1,0 +1,28 @@
+{% extends "@theme/layouts/main.html" %}
+
+{% block content %}
+	<div class="container main">
+	{% for message in flashbag('message') %}
+		<div class="alert">{{ message }}</div>
+	{% endfor %}
+		<h5>Viewing single reply</h5>
+		<div class="category post">
+			<div class="category-header">
+			{% if app.current_user and reply.author.id == app.current_user.id %}
+				<div class="actions">
+					<a href="{{ path('reply.edit', {board_slug: board.slug, post_id: post.id, reply_id: reply.id}) }}">Edit</a>&nbsp;
+					<a href="{{ path('reply.delete', {board_slug: board.slug, post_id: post.id, reply_id: reply.id}) }}">Delete</a>
+				</div>
+			{% endif %}
+				<h2 style="font-size: 24px;">{{ reply.author.name }}</h2>
+				<p>{% include "@theme/layouts/reply_meta.html" %}</p>
+			</div>
+			<div class="post-view">
+				{{ reply.content|markdown }}
+			</div>
+		</div>
+		<p style="margin-top: 10px;">
+			<a href="{{ path('post.view.id', {board_slug: board.slug, post_id: post.id}) }}#reply-{{ reply.id }}">View full thread</a>
+		</p>
+	</div>
+{% endblock %}

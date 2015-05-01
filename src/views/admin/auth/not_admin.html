@@ -1,0 +1,14 @@
+{% extends "@admin/layouts/main_guest.html" %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="twelve column top" style="margin-top: 120px;">
+				<h2 style="margin: 0;">Uh, oh!</h2>
+				<p style="margin: 0;">It seems like you should not be here.</p>
+				<hr />
+				<p><a href="{{ path('site.index') }}">Go to home</a></p>
+			</div>
+		</div>
+	</div>
+{% endblock %}

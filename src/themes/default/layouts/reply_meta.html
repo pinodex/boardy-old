@@ -1,0 +1,4 @@
+Posted on {{ reply.created|date('M d, h:i a') }}
+{% if reply.last_edited %}
+	&nbsp;(Last edited: {{ reply.last_edited|date('M d, h:i a') }})
+{% endif %}

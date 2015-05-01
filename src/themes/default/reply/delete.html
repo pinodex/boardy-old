@@ -1,0 +1,25 @@
+{% extends "@theme/layouts/main.html" %}
+
+{% form_theme reply_form '@theme/layouts/form_post.html' %}
+
+{% block content %}
+	<div class="container main">
+		<div class="category post">
+			<div class="category-header">
+				<h2 style="font-size: 24px;">{{ reply.author.name }}</h2>
+				<p>{% include "@theme/layouts/reply_meta.html" %}</p>
+			</div>
+			<div class="post-view create">
+				<h6>Are you sure you want to delete this post?</h6>
+				<blockquote>
+					{{ reply.content|markdown }}
+				</blockquote>
+				<form action="{{ app.request.pathinfo }}" method="post">
+					{{ form_widget(reply_form) }}
+					<button type="submit" class="button button-negative">Delete Reply</button>
+					<a href="{{ path('post.view.id', {board_slug: board.slug, post_id: post.id}) }}#reply-{{ reply.id }}" class="button">Cancel</a>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

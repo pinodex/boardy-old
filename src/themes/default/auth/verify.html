@@ -1,0 +1,21 @@
+{% extends "@theme/layouts/main.html" %}
+
+{% block content %}
+	<div class="container" id="login">
+		<div class="row">
+			<div class="six columns">
+				<h4>Account verification</h4>
+				{% for message in flashbag('message') %}
+				<div class="alert">{{ message }}</div>
+				{% endfor %}
+				<p>Thank you for signing up!</p>
+				<p>A verification email has been sent to <strong>{{ app.current_user.email }}</strong>. Click on the verification link to complete the registration.</p>
+				<p>If you can't find the verification email, check or spam folder or resend the email.</p>
+				<form action="{{ path('auth.verify') }}" method="post">
+					{{ form_widget(verify_form) }}
+					<button type="submit" class="button-primary submit-button">Resend Email</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

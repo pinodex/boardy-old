@@ -1,0 +1,91 @@
+{% extends "@admin/layouts/main.html" %}
+
+{% set messages = flashbag('message') %}
+
+{% block content %}
+	<div class="main-container">
+	{% if messages %}
+		<div class="row notification">
+			<div class="columns large-12">
+			{% for message in messages %}
+				<div class="alert-box secondary radius">{{ message }}</div>
+			{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+		<div class="row page-header">
+			<div class="columns small-6 page-header-text">
+				<h3>Boards</h3>
+			</div>
+			<div class="columns small-6 page-header-controls">
+				<a href="{{ path('admin.boards.add') }}" class="button tiny round"><i class="fa fa-plus"></i> New</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="columns large-12">
+				<div class="list has-second-level">
+				{% for category in categories %}
+				{% set boards = app.boards.byCategory(category.id) %}
+					<div class="row item">
+						<div class="columns large-12 content">
+							<h2><i class="fa fa-folder{{ (boards is not empty) ? '-open' }}-o"></i> {{ category.name }} <small>/{{ category.slug }}/</small></h2>
+							<p>{{ category.description }}</p>
+						</div>
+						<div class="columns large-12 second-level">
+						{% if boards is empty %}
+							<div class="row">
+								<div class="columns large-12 content">
+									<p class="note">Nothing to show here.</p>
+								</div>
+							</div>
+						{% endif %}
+						{% for board in boards %}
+							<div class="row">
+								<div class="columns medium-9 content">
+									<h2>{{ board.name }} <small>/{{ board.slug }}/ ({{ board.permissions }})</small></h2>
+									<p>{{ board.description }}</p>
+								</div>
+								<div class="columns medium-3 controls">
+									<a href="{{ path('admin.boards.edit', {id: board.id}) }}" class="button secondary tiny radius"><i class="fa fa-edit"></i> <span>Edit</span></a>
+									<a href="{{ path('admin.boards.delete', {id: board.id}) }}" class="button alert tiny radius"><i class="fa fa-minus-circle"></i> <span>Delete</span></a>
+								</div>
+							</div>
+						{% endfor %}
+
+						</div>
+					</div>
+				{% endfor %}
+					{% set boards = app.boards.byCategory('0') %}
+					{% if boards is not empty %}
+					<div class="row item">
+						<div class="columns large-12 content">
+							<h2>Unassigned</h2>
+							<p>Boards that are not assigned to any category goes here.</p>
+						</div>
+						<div class="columns large-12 second-level">
+						
+							<div class="row">
+								<div class="columns large-12 content">
+									<p class="note">Nothing to show here.</p>
+								</div>
+							</div>
+						{% for board in boards %}
+							<div class="row">
+								<div class="columns medium-9 content">
+									<h2>{{ board.name }} <small>/{{ board.slug }}/ ({{ board.permissions }})</small></h2>
+									<p>{{ board.description }}</p>
+								</div>
+								<div class="columns medium-3 controls">
+									<a href="{{ path('admin.boards.edit', {id: board.id}) }}" class="button secondary tiny radius"><i class="fa fa-edit"></i> <span>Edit</span></a>
+									<a href="{{ path('admin.boards.delete', {id: board.id}) }}" class="button alert tiny radius"><i class="fa fa-minus-circle"></i> <span>Delete</span></a>
+								</div>
+							</div>
+						{% endfor %}
+						</div>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

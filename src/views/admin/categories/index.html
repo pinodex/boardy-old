@@ -1,0 +1,43 @@
+{% extends "@admin/layouts/main.html" %}
+
+{% set messages = flashbag('message') %}
+
+{% block content %}
+	<div class="main-container">
+	{% if messages %}
+		<div class="row notification">
+			<div class="columns large-12">
+			{% for message in messages %}
+				<div class="alert-box secondary radius">{{ message }}</div>
+			{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+		<div class="row page-header">
+			<div class="columns small-7 page-header-text">
+				<h3>Categories</h3>
+			</div>
+			<div class="columns small-5 page-header-controls">
+				<a href="{{ path('admin.categories.add') }}" class="button tiny round"><i class="fa fa-plus"></i> New</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="columns large-12">
+				<div class="list">
+				{% for category in categories %}
+					<div class="row item">
+						<div class="columns medium-9 content">
+							<h2><i class="fa fa-folder-o"></i>  {{ category.name }} <small>/{{ category.slug }}/</small></h2>
+							<p>{{ category.description }}</p>
+						</div>
+						<div class="columns medium-3 controls">
+							<a href="{{ path('admin.categories.edit', {id: category.id}) }}" class="button secondary tiny radius"><i class="fa fa-edit"></i> <span>Edit</span></a>
+							<a href="{{ path('admin.categories.delete', {id: category.id}) }}" class="button alert tiny radius"><i class="fa fa-minus-circle"></i> <span>Delete</span></a>
+						</div>
+					</div>
+				{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

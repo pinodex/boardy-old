@@ -1,0 +1,90 @@
+.top {
+	margin-top: 60px;
+}
+
+@media (max-width: 550px) {
+	.top {
+		margin-top: 20px;
+	}
+}
+
+.top h2 {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 5px;
+}
+
+@media (max-width: 550px) {
+	*[class*="column"] + *[class*="column"] {
+		margin-top: 20px;
+	}
+}
+
+.panel {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	box-shadow: 0 2px 3px #eee;
+}
+
+.panel + .panel {
+	margin-top: 20px;
+}
+
+.panel > .title {
+	font-size: 16px;
+	font-weight: normal;
+	letter-spacing: 0.01em;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 0;
+	padding: 10px;
+}
+
+.panel > .content {
+	padding: 10px;
+}
+
+.panel table {
+	margin-bottom: 0;
+	font-size: 13px;
+}
+
+.panel table td {
+	padding: 0;
+	border: none;
+	vertical-align: top;
+	word-wrap: break-word;
+}
+
+.panel table td:first-child {
+	color: #777;
+}
+
+@media (min-width: 549px) {
+	.panel table td:first-child {
+		width: 130px;
+	}
+}
+
+.panel .foot {
+	border-top: 1px solid #ddd;
+	padding: 10px;
+}
+
+.panel .foot .button {
+	margin-bottom: 0;
+}
+
+.button.sm {
+	height: auto;
+	line-height: normal;
+	font-weight: normal;
+	padding: 10px 20px;
+}
+
+pre.ini {
+	font-size: 12px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	box-shadow: 0 2px 3px #eee;
+	padding: 10px;
+	max-height: 600px;
+}

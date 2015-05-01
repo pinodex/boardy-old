@@ -1,0 +1,332 @@
+body {
+	font-family: 'Open Sans', 'Helvetica Neue', 'DejaVu Sans';
+}
+
+.main.row {
+	max-width: none;
+	height: 100%;
+}
+
+.title-area .name a {
+	font-family: 'Droid Sans';
+	font-size: 14px;
+}
+
+.side-bar-container {
+	overflow: hidden;
+	height: 100%;
+	position: fixed;
+	padding: 0;
+}
+
+@media (max-width: 40.063em) {
+	.side-bar-container {
+		display: none;
+	}
+}
+
+.side-bar {
+	background: #222;
+	overflow: hidden;
+	height: 100%;
+}
+
+.side-bar-section ul,
+.side-bar-section ul li {
+	margin: 0;
+	list-style-type: none;
+}
+
+.side-bar-section ul li a {
+	display: block;
+	font-family: 'Droid Sans';
+	font-size: 13px !important;
+	padding: 10px 20px;
+	font-size: 14px;
+	color: #fff;
+}
+
+.side-bar-section ul li a:hover {
+	background: #111;
+}
+
+.side-bar-section ul li.active a {
+	background: #171717;
+	border-left: 5px solid #008cba;
+	padding-left: 15px;
+}
+
+.top-bar .fa,
+.side-bar .fa {
+	margin-right: 5px;
+}
+
+.main-content-container {
+	padding-top: 10px;
+}
+
+.window {
+	background: #fafafa;
+	border: 1px solid #eee;
+	border-radius: 3px;
+}
+
+.window .title {
+	padding: 10px;
+	border-bottom: 1px solid #eee;
+	font-size: 18px;
+}
+
+.window .content {
+	padding: 10px;
+}
+
+.page-header {
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 20px !important;
+}
+
+.page-header-controls {
+	padding-top: 3px;
+	text-align: right;
+}
+
+@media (max-width: 40.063em) {
+	.page-header-controls {
+		padding-top: 0;
+	}
+}
+
+.page-header-controls .button {
+	margin-bottom: 0;
+}
+
+@media (max-width: 40em) {
+	.page-header-controls .button[data-remote-submit] {
+		display: none;
+	}
+}
+
+.list:not(.has-second-level) .item:nth-child(odd) {
+	background: #fafafa;
+}
+
+.list .item:last-child {
+	margin-bottom: 30px;
+}
+
+.list .item .content h2 {
+	font-family: 'Droid Sans';
+	font-size: 24px;
+	margin-bottom: 0;
+}
+
+.list .item .content p {
+	font-size: 12px;
+	margin-bottom: 0.2rem;
+}
+
+.list .item .controls {
+	padding-top: 12px;
+	text-align: right;
+}
+
+.list .item .controls .button {
+	margin-bottom: 0;
+}
+
+@media (max-width: 64em) {
+	.list .item .controls .button span {
+		display: none;
+	}
+}
+
+@media (max-width: 40.063em) {
+	.list .item .controls {
+		text-align: left;
+		margin-bottom: 10px;
+	}
+
+	.list .item .controls .button span {
+		display: inline;
+	}
+}
+
+.list.has-second-level .item + .item {
+	margin-top: 20px;
+}
+
+.list .item .second-level {
+	padding-left: 50px;
+}
+
+.list .item .second-level .content {
+	border-left: 3px solid #999;
+}
+
+.list .item .second-level .content h2 {
+	font-size: 20px;
+}
+
+.list .item .second-level .content p {
+	color: #555
+}
+
+.list .item .second-level .controls {
+	padding-top: 9px;
+}
+
+@media (max-width: 40.063em) {
+	.list .item .second-level .controls {
+		padding-top: 0px;
+		border-left: 3px solid #999;
+	}
+
+	.list .item .second-level .controls .button {
+		padding: 7px 10px !important;
+	}
+}
+
+.grid .row > .columns + .columns {
+	margin-bottom: 10px;
+}
+
+.grid .row > .columns:last-child {
+	float: left;
+}
+
+.grid .item {
+	background: #fafafa;
+	border-radius: 2px;
+	overflow: hidden;
+}
+
+.grid .item .image-text-overlay {
+	position: relative;
+}
+
+.grid .item .image-text-overlay img {
+	height: auto;
+	width: 100%;
+}
+
+.grid .item .image-text-overlay span {
+	display: block;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding: 5px;
+	background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.85)));
+	background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.85) 100%);
+	background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.85) 100%);
+	background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.85) 100%);
+	background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.85) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#d9000000',GradientType=0 );
+	color: #fff;
+	font-family: 'Droid Sans';
+	font-size: 14px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-shadow: 0 1px 2px #111;
+}
+
+@media (max-width: 64em) {
+	.grid .item .image-text-overlay span {
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 40em) {
+	.grid .item .image-text-overlay span {
+		font-size: 11px;
+	}
+}
+
+.grid .item .content {
+	padding: 5px;
+}
+
+.grid .item .content h2 {
+	font-size: 16px;
+	margin-bottom: 0;
+}
+
+.grid .item .content p {
+	font-size: 11px;
+	color: #777;
+	margin: 0;
+}
+
+.grid .item .controls {
+	padding: 5px;
+}
+
+.grid .item .controls .button {
+	padding: 5px 7px;
+	font-size: 10px;
+	margin-bottom: 0;
+}
+
+@media (max-width: 40.063em) {
+	.grid .item .controls .button span {
+		display: none;
+	}
+}
+
+form input,
+form textarea {
+	border-radius: 2px !important;
+	transition: none !important;
+}
+
+form .form-row.has-error input,
+form .form-row.has-error textarea,
+form .form-row.has-error select {
+	border-radius: 2px 2px 0 0 !important;
+	margin-bottom: -1px;
+}
+
+form ul.errors,
+form ul.errors li {
+	list-style-type: none;
+	margin-left: 0;
+	font-size: 11px;
+}
+
+form ul.errors li {
+	background: #ff2424;
+	color: #fff;
+	padding: 5px 10px;
+}
+
+form ul.errors li:last-child {
+	border-radius: 0 0 2px 2px;
+}
+
+form textarea {
+	min-height: 100px;
+}
+
+.notes {
+	font-size: 13px;
+}
+
+ul.notes {
+	margin-left: 50px;
+}
+
+.configuration-table {
+	width: 100%;
+}
+
+.configuration-table tbody td {
+	font-size: 12px;
+}
+
+.info-box p {
+	font-size: 12px;
+	margin: 0;
+}

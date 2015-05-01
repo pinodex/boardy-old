@@ -1,0 +1,20 @@
+{% extends "@theme/layouts/main.html" %}
+
+{% form_theme login_form '@theme/layouts/form_auth.html' %}
+
+{% block content %}
+	<div class="container" id="login">
+		<div class="row">
+			<div class="six columns">
+				<h4>Login</h4>
+				{% for message in flashbag('message') %}
+				<div class="alert">{{ message }}</div>
+				{% endfor %}
+				<form action="{{ path('auth.login') }}" method="post">
+					{{ form_widget(login_form) }}
+					<button type="submit" class="button-primary">Login</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

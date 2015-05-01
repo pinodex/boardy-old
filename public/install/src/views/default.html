@@ -1,0 +1,15 @@
+{% extends "_layout.html" %}
+
+{% form_theme form '_form.html' %}
+
+{% block content %}
+	<div class="row">
+		<div class="six columns">
+			<p>{{ action_name }}</p>
+			<form action="{{ path(app.request.attributes.get('_route')) }}" method="post" autocomplete="off">
+				{{ form_widget(form) }}
+				<button class="button button-primary" type="submit">{{ submit_label }}</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}
