@@ -1,5 +1,7 @@
 # Boardy
-Simple PHP forum software. [Demo](http://boardy.pinodex.io/)
+Simple PHP forum software. [Click here for Demo](http://boardy.pinodex.io/)
+Demo email: admin@boardy.pinodex.io
+Demo password: admin12345
 
 ### Requirements
 - PHP 5.4 or higer
