@@ -51,6 +51,14 @@ class ConfigurationsController {
 				);
 			}
 
+			if ($configuration['id'] == 'recaptcha_private')  {
+				$options['required'] = false;
+			}
+
+			if ($configuration['id'] == 'recaptcha_public')  {
+				$options['required'] = false;
+			}
+
 			if ($configuration['id'] == 'theme') {
 				$type = 'choice';
 
@@ -66,6 +74,14 @@ class ConfigurationsController {
 
 		if ($form->isValid()) {
 			$data = $form->getData();
+
+			if (!$data['recaptcha_private'])  {
+				$data['recaptcha_private'] = '';
+			}
+
+			if (!$data['recaptcha_public'])  {
+				$data['recaptcha_public'] = '';
+			}
 
 			$app['configurations']->setBatch($data);
 
