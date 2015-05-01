@@ -44,12 +44,17 @@ class UsersProvider implements ServiceProviderInterface {
 		$user->password = Hash::make($data['password']);
 		$user->registered = date('Y-m-d H:i:s');
 		$user->verification_key = Helpers::noise(8, hash('sha1', $data['username']));
+
+		if (!$verification = $this->app['configurations']->get('verify_email')) {
+			$user->acctype = 'USER';
+		}
+
 		$user->save();
 
 		$this->user = $user;
 		$this->app['session']->set('auth', $this->app['auth']->newSession($user));
 
-		if ($this->app['configurations']->get('verify_email')) {
+		if ($verification) {
 			$this->sendVerification();
 		}
 
