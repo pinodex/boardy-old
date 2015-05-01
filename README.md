@@ -9,7 +9,7 @@ Simple PHP forum software.
 ### Installation
 1. Clone this repository or download and extract the archive file.
 2. Install dependancies with composer.
-3. Visit http://example.com/install and proceed with the installation.
+3. Visit http://example.com/install/ or http://example.com/install/index.php and proceed with the installation.
 
 ### Development status
 This software is not in active development. I only work on this in my spare time. Therefore, not recommended for production use.
