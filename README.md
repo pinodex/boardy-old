@@ -1,5 +1,5 @@
 # Boardy
-Simple PHP forum software.
+Simple PHP forum software. [Demo](http://boardy.pinodex.io/)
 
 ### Requirements
 - PHP 5.4 or higer
