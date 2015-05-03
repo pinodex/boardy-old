@@ -47,7 +47,7 @@ $app = new Application();
 
 if (!file_exists(APP . 'config.php')) {
 	$app->get('/', function() use ($app) {
-		// Simulating error 500.
+		return;
 	});
 
 	return $app;
