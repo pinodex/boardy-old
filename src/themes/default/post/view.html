@@ -56,14 +56,5 @@
 			</div>
 		{% endif %}
 		</div>
-		{% if pages %}
-		<ul class="pagination">
-			<li><a href="lol">&laquo;</a></li>
-		{% for page in pages %}
-			<li><a href="{{ path('post.view', {board_slug: board.slug, post_id: post.id, post_slug: post.slug, page: page}) }}">{{ page }}</a></li>
-		{% endfor %}
-			<li><a href="lol">&raquo;</a></li>
-		</ul>
-		{% endif %}
 	</div>
 {% endblock %}

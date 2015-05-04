@@ -143,8 +143,6 @@ class PostsController {
 		}
 
 		$board = $board->getAttributes();
-		//$limit = $app['configurations']->app('replies_per_page', 20);
-		$limit = null;
 		$page = (int) $request->query->get('page', '1');
 		$replies = $app['replies']->get('post', '=', $post['id']);
 
@@ -152,7 +150,6 @@ class PostsController {
 		$vars['board'] = $board;
 		$vars['post'] = $post;
 		$vars['replies'] = $replies['replies'];
-		$vars['pages'] = $replies['pages'];
 		$vars['reply_form'] = $form->createView();
 
 		return $app['twig']->render('@theme/post/view.html', $vars);

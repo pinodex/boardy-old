@@ -32,12 +32,11 @@ class BoardsController {
 			)), 403);
 		}
 
-		$limit = $app['configurations']->get('posts_per_page', 20);
-		$page = (int) $request->query->get('page', '1');
+		$page = $request->query->get('page', '1');
 		$board = $board->getAttributes();
 
 		$vars['page_title'] = $board['name'];
-		$vars['board'] = $app['posts']->get('board' , '=', $board['id'], $page, $limit);
+		$vars['board'] = $app['posts']->get('board' , '=', $board['id']);
 		$vars['board']['meta'] = $board;
 
 		return $app['twig']->render('@theme/board.html', $vars);

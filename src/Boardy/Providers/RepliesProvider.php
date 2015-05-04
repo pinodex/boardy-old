@@ -76,40 +76,17 @@ class RepliesProvider implements ServiceProviderInterface {
 		return $replies;
 	}
 
-	public function get($column, $comparator, $value, $page = null, $limit = null) {
+	public function get($column, $comparator, $value) {
 		$replies = Replies::where($column, $comparator, $value)->orderBy('id', 'ASC');
 		$output = array(
-			'replies' => array(),
-			'pages' => array()
+			'replies' => array()
 		);
-
-		$total = $replies->count();
-
-		if ($page) {
-			if ($page < 1) {
-				$page = 1;
-			}
-
-			$replies->skip($limit * ($page - 1));
-		}
-
-		if ($limit) {
-			$replies->take($limit);
-		}
 
 		foreach ($replies->get() as $i => $post) {
 			$output['replies'][$i] = $post->getAttributes();
 			$output['replies'][$i]['author'] = $this->app['user']->fetch('id', '=', $post['author']);
 		}
-
-		if ($limit) {
-			$total = ceil($total / $limit);
-
-			for ($i = 1; $i <= $total; $i++) {
-				$output['pages'][] = $i;
-			}
-		}
-
+		
 		return $output;
 	}
 

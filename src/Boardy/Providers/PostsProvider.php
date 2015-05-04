@@ -89,38 +89,15 @@ class PostsProvider implements ServiceProviderInterface {
 		return $posts;
 	}
 
-	public function get($column, $comparator, $value, $page = null, $limit = null) {
+	public function get($column, $comparator, $value) {
 		$posts = Posts::where($column, $comparator, $value)->orderBy('id', 'DESC');
 		$output = array(
-			'posts' => array(),
-			'pages' => array()
+			'posts' => array()
 		);
-
-		$total = $posts->count();
-
-		if ($page) {
-			if ($page < 1) {
-				$page = 1;
-			}
-
-			$posts->skip($limit * ($page - 1));
-		}
-
-		if ($limit) {
-			$posts->take($limit);
-		}
 
 		foreach ($posts->get() as $i => $post) {
 			$output['posts'][$i] = $post->getAttributes();
 			$output['posts'][$i]['author'] = $this->app['user']->fetch('id', '=', $post['author']);
-		}
-
-		if ($limit) {
-			$total = ceil($total / $limit);
-
-			for ($i = 1; $i <= $total; $i++) {
-				$output['pages'][] = $i;
-			}
 		}
 
 		return $output;

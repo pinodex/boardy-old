@@ -65,7 +65,7 @@ $app['profiler.mount_prefix'] = '/_profiler';
  * Database configuration
  */
 $app['db.config'] = array(
-	'driver'		=> 'mysql',
+	'driver'		=> '{driver}',
 	'host'			=> '{host}',
 	'database'		=> '{database}',
 	'username'		=> '{username}',

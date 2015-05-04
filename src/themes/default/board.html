@@ -16,6 +16,11 @@
 				<p>{{ board.meta.description }}</p>
 			</div>
 			<div class="posts">
+			{% if board.posts is empty %}
+				<div class="post">
+					<p>No items to show</p>
+				</div>
+			{% endif %}
 			{% for post in board.posts %}
 				<div class="post">
 					<h3><a href="{{ path('post.view', {board_slug: board.meta.slug, post_id: post.id, post_slug: post.slug}) }}">{{ post.name }}</a></h3>
@@ -24,12 +29,5 @@
 			{% endfor %}
 			</div>
 		</div>
-		<ul class="pagination">
-			<li><a href="lol">&laquo;</a></li>
-		{% for page in board.pages %}
-			<li><a href="{{ path('board', {board_slug: board.meta.slug, page: page}) }}">{{ page }}</a></li>
-		{% endfor %}
-			<li><a href="lol">&raquo;</a></li>
-		</ul>
 	</div>
 {% endblock %}

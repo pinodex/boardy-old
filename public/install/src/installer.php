@@ -7,6 +7,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use Boardy\Utils\Hash;
 
 $app = new Application();
+$app['debug'] = true;
 
 if (file_exists(BOARDY . '/config.php')) {
 	return $app;
@@ -65,6 +66,12 @@ $app->match('/start', function (Request $request) use ($app) {
 	$vars['submit_label'] = 'Connect';
 
 	$form = $app['form.factory']->createNamedBuilder(null, 'form')
+		->add('driver', 'choice', array(
+			'choices' => array(
+				'mysql' => 'MySQL',
+				'pgsql' => 'PostgreSQL'
+			)
+		))
 		->add('host', 'text', array(
 			'constraints' => array(
 				new Assert\NotBlank()
@@ -88,9 +95,7 @@ $app->match('/start', function (Request $request) use ($app) {
 			'data' => 'boardy'
 		))
 		->add('prefix', 'text', array(
-			'constraints' => array(
-				new Assert\NotBlank()
-			),
+			'required' => false,
 			'data' => 'boardy_'
 		))
 		->getForm();
@@ -99,7 +104,6 @@ $app->match('/start', function (Request $request) use ($app) {
 
 	if ($form->isValid()) {
 		$data = $form->getData();
-		$data['driver'] = 'mysql';
 		$data['charset'] = 'utf8';
 		$data['collation'] = 'utf8_unicode_ci';
 
@@ -110,7 +114,7 @@ $app->match('/start', function (Request $request) use ($app) {
 		$error = false;
 
 		try {
-			new PDO('mysql:host=' . $data['host'] . ';dbname=' . $data['database'],
+			new PDO($data['driver'] . ':host=' . $data['host'] . ';dbname=' . $data['database'],
 				$data['username'], $data['password']);
 		} catch (Exception $e) {
 			$app['flashbag']->add('message', $e->getMessage());
@@ -299,7 +303,7 @@ $app->get('/post/async', function (Request $request) use ($app) {
 		$table->text('content');
 		$table->string('tags')->nullable();
 		$table->integer('board')->default(0);
-		$table->timestamp('created')->default('0000-00-00 00:00:00');
+		$table->timestamp('created')->nullable();
 		$table->timestamp('last_edited')->nullable();
 		$table->softDeletes();
 		$table->integer('author')->default(0);
@@ -310,7 +314,7 @@ $app->get('/post/async', function (Request $request) use ($app) {
 		$table->increments('id');
 		$table->integer('post')->nullable();
 		$table->text('content');
-		$table->timestamp('created')->default('0000-00-00 00:00:00');
+		$table->timestamp('created')->nullable();
 		$table->timestamp('last_edited')->nullable();
 		$table->softDeletes();
 		$table->integer('author')->default(0);
@@ -333,9 +337,9 @@ $app->get('/post/async', function (Request $request) use ($app) {
 		$table->string('password');
 		$table->string('acctype', 16)->default('UNVERIFIED');
 		$table->tinyInteger('active')->default(0);
-		$table->timestamp('last_activity')->default('0000-00-00 00:00:00');
-		$table->timestamp('last_login')->default('0000-00-00 00:00:00');
-		$table->timestamp('registered')->default('0000-00-00 00:00:00');
+		$table->timestamp('last_activity')->nullable();
+		$table->timestamp('last_login')->nullable();
+		$table->timestamp('registered')->nullable();
 		$table->softDeletes();
 		$table->string('ip', 64)->default('0.0.0.0');
 		$table->string('verification_key', 10)->default('');
@@ -347,7 +351,7 @@ $app->get('/post/async', function (Request $request) use ($app) {
 		$table->string('hash', 40);
 		$table->string('ip', 64);
 		$table->text('ua');
-		$table->timestamp('last_activity')->default('0000-00-00 00:00:00');
+		$table->timestamp('last_activity')->nullable();
 	});
 
 	Capsule::table('configurations')->insert(array(
@@ -448,6 +452,7 @@ $app->get('/post/async', function (Request $request) use ($app) {
 	$config = str_replace(
 			array(
 				'{timezone}',
+				'{driver}',
 				'{host}',
 				'{database}',
 				'{username}',
@@ -458,6 +463,7 @@ $app->get('/post/async', function (Request $request) use ($app) {
 			),
 			array(
 				$timezones[$site['timezone']],
+				$database['driver'],
 				$database['host'],
 				$database['database'],
 				$database['username'],

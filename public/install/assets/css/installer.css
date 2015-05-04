@@ -33,7 +33,8 @@ body {
 	margin-bottom: 10px;
 }
 
-form input {
+form input,
+form select {
 	width: 100%;
 }
 
