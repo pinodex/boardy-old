@@ -6,17 +6,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Boardy\Utils\Hash;
 
-$app = new Application();
-$app['debug'] = true;
-
-if (file_exists(BOARDY . '/config.php')) {
-	return $app;
-}
-
 $capsule = new Capsule();
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => ROOT . '/views',
+    'twig.path' => APP . 'views/install',
 ));
 $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider());
@@ -59,6 +52,36 @@ $app->get('/', function () use ($app) {
 		'hide_header' => 1
 	));
 });
+
+$app->get('/check', function(Request $request) use ($app) {
+	$vars['page_title'] = 'Errors';
+
+	$errors = array();
+
+	if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+		$errors[] = 'PHP 5.4+ is required';
+	}
+
+	if (!extension_loaded('PDO')) {
+		$errors[] = 'PHP PDO extension cannot be found.';
+	}
+
+	if (!is_writable(ROOT)) {
+		$errors[] = 'The application root must be writable';
+	}
+
+	if (!is_writable(APP)) {
+		$errors[] = 'The source directory must be writable';
+	}
+
+	if (empty($errors)) {
+		return $app->redirect($app['url_generator']->generate('start'));
+	}
+
+	$vars['errors'] = $errors;
+
+	return $app['twig']->render('error.html', $vars);
+})->bind('check');
 
 $app->match('/start', function (Request $request) use ($app) {
 	$vars['page_title'] = 'Database';
@@ -239,10 +262,6 @@ $app->match('/admin', function (Request $request) use ($app) {
 $app->get('/post', function (Request $request) use ($app) {
 	$vars['page_title'] = 'Post Install';
 
-	if ($app['session']->get('installed')) {
-		return $app['twig']->render('post.html', $vars);
-	}
-
     return $app['twig']->render('post.html', $vars);
 })->before(function() use ($app) {
 	if (!$app['session']->get('database_connection')) {
@@ -259,12 +278,6 @@ $app->get('/post', function (Request $request) use ($app) {
 })->bind('post');
 
 $app->get('/post/async', function (Request $request) use ($app) {
-	if ($app['session']->get('installed')) {
-		return $app->json(array(
-			'status' => 'ok'
-		));
-	}
-
 	$database = $app['session']->get('database_connection');
 	$site = $app['session']->get('site_info');
 	$admin = $app['session']->get('admin_account');
@@ -432,7 +445,7 @@ $app->get('/post/async', function (Request $request) use ($app) {
 	Capsule::table('posts')->insert(array(
 		'name' => 'Welcome to ' . $site['site_name'] . '!',
 		'slug' => 'welcome-humans',
-		'content' => file_get_contents(ROOT . '/sample_post.txt'),
+		'content' => @file_get_contents(APP . 'files/sample_post.txt'),
 		'tags' => 'introduction,welcome',
 		'board' => '1',
 		'created' => date('Y-m-d H:i:s'),
@@ -448,7 +461,7 @@ $app->get('/post/async', function (Request $request) use ($app) {
 		'ip' => '127.0.0.1'
 	));
 
-	$config = file_get_contents(ROOT . '/config.template.txt');
+	$config = file_get_contents(APP . 'files/config.template.txt');
 	$config = str_replace(
 			array(
 				'{timezone}',
@@ -473,9 +486,11 @@ $app->get('/post/async', function (Request $request) use ($app) {
 				$database['collation']
 			),
 		$config);
-	file_put_contents(BOARDY . '/config.php', $config);
+	file_put_contents(APP . 'config.php', $config);
 
-	$app['session']->set('installed', true);
+	$app['session']->remove('database_connection');
+	$app['session']->remove('site_info');
+	$app['session']->remove('admin_account');
 
     return $app->json(array(
 		'status' => 'ok'

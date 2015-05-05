@@ -46,11 +46,7 @@ use Boardy\Providers\ThemesProvider;
 $app = new Application();
 
 if (!file_exists(APP . 'config.php')) {
-	$app->get('/', function() use ($app) {
-		return;
-	});
-
-	return $app;
+	return require APP . 'installer.php';
 }
 
 $app->register(new TwigServiceProvider());

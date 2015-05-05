@@ -7,6 +7,10 @@ body {
 	border-bottom: 1px solid #ddd;
 }
 
+.errors {
+	margin-left: 20px;
+}
+
 .index {
 	text-align: center;
 	margin-top: 100px;

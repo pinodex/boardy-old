@@ -1,5 +1,16 @@
 {
+	"name": "pinodex/boardy",
+	"description": "Simple forum software written in PHP",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Raphael Marco",
+			"email": "pinodex@outlook.ph",
+			"homepage": "http://pinodex.io"
+		}
+	],
 	"require": {
+		"php": ">=5.4.0",
 		"silex/silex": "~1.1",
 		"twig/twig": "~1.0",
 		"filp/whoops": "~1.1",
