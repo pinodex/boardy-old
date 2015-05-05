@@ -23,3 +23,6 @@ This software is not in active development. I only work on this in my spare time
 URL Rewriting works well with Apache. An `.htaccess` file is already included here.
 ##### Nginx
 It bugs on installation because `/install` and `/install/index.php` rewrites to `/index.php`.
+
+### Plans
+https://github.com/pinodex/boardy/issues/2
