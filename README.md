@@ -19,10 +19,7 @@ Demo password: admin12345
 This software is not in active development. I only work on this in my spare time. Therefore, not recommended for production use.
 
 ### URL Rewriting
-##### Apache
-URL Rewriting works well with Apache. An `.htaccess` file is already included here.
-##### Nginx
-It bugs on installation because `/install` and `/install/index.php` rewrites to `/index.php`.
+Read the [Documentation](http://silex.sensiolabs.org/doc/web_servers.html) from the Silex website. Use the `public/` directory as the document root.
 
 ### Plans
 https://github.com/pinodex/boardy/issues/2
