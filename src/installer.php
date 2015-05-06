@@ -248,7 +248,7 @@ $app->match('/admin', function (Request $request) use ($app) {
 
 	$vars['form'] = $form->createView();
 
-    return $app['twig']->render('default.html', $vars);
+	return $app['twig']->render('default.html', $vars);
 })->before(function() use ($app) {
 	if (!$app['session']->get('database_connection')) {
 		return $app->redirect($app['url_generator']->generate('start'));

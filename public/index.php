@@ -1,11 +1,11 @@
 <?php
 
 /**
- * phpSysMon
+ * Boardy
  *
- * PHP system monitoring script for Linux, also on Windows (sort-of).
+ * Simple PHP forum app.
  *
- * @package  phpsysmon
+ * @package  boardy
  * @author   Raphael Marco <pinodex@outlook.ph>
  * @link     http://pinodex.io
  */
